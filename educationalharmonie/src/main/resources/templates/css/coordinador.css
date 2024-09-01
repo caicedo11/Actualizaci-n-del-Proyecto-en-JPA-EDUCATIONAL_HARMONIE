@@ -1,0 +1,165 @@
+/* Estilo general para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+}
+
+/* Menú lateral */
+.sidebar {
+    width: 250px;
+    background-color: #03dffc;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar img {
+    display: block;
+    margin: 0 auto 20px;
+    width: 150px;
+}
+
+.sidebar h4 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    background-color: #fdfdfd;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #5e5e5e;
+}
+
+#logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0401d6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#logout-btn:hover {
+    background-color: #0401d6;
+}
+
+/* Contenido principal */
+.content {
+    margin-left: 270px; /* Ajustar para que no se superponga con el menú lateral */
+    padding: 90px;
+}
+
+.content h1 {
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid blue; /* Borde azul */
+    padding-bottom: 10px;
+}
+
+.content h2 {
+    color: #666;
+    border-bottom: 1px solid gray; /* Borde gris */
+    padding-bottom: 5px;
+}
+
+.content h3 {
+    color: #333;
+    text-align: center;
+}
+
+.content form {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 500px;
+}
+
+.content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.content input[type="text"], .content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.content button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.content button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para las listas */
+.content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid green; /* Borde verde */
+}
+
+.content li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.content li:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para los divs de listas ocultables */
+.hidden {
+    display: none;
+}
+
+/* Estilo para los buscadores */
+.content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

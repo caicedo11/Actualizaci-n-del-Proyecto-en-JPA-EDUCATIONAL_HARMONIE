@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDUCATIONAL HARMONIE</title>
+    <link rel="stylesheet" type="text/css" href="css/acudiente.css">
+</head>
+<body>
+    <div id="container">
+        <div id="menu">
+            <img src="/ruta/imagen/logo.png" alt="Logo de Educational Harmonie">
+            <br>
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#" onclick="toggleForm()">Crear Queja</a></li>
+                <li><a href="#" onclick="toggleList('quejas')">Historial de Quejas</a></li>
+                <li><a href="#" onclick="toggleList('reportes')">Historial de Reportes</a></li>
+                <li>
+                    <form action="/logout" method="post">
+                        <button type="submit" id="logout-btn">Cerrar Sesión</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <div id="main-content">
+            
+            <h1 id="bienvenido">Bienvenido a Educational Harmonie</h1>
+
+            <h3>Acudiente</h3>
+            <br> <br> <br>
+            
+            <div id="quejaForm" style="display: none;">
+                <h2>Crear Nueva Queja</h2>
+                <br>
+                <form action="#" th:action="@{/acudientes/quejar}" th:object="${queja}" method="post">
+                    <input type="hidden" th:field="*{estudiante.id}" th:value="${estudianteId}"/>
+                    <div>
+                        <br>
+                        <label for="nombres">Nombre del Estudiante:</label>
+                        <input type="text" th:value="${estudiante.nombres}" readonly id="nombres"/>
+                    </div>
+                </form>
+            </div>
+            <div id="quejasList" style="display: none;">
+            </div>
+            <div id="reportesList" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+    </script>
+</body>
+</html>

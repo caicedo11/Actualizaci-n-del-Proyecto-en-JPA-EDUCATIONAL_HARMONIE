@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDUCATIONAL HARMONIE</title>
+    <link rel="stylesheet" type="text/css" href="css/coordinador.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Menú lateral -->
+        <div class="sidebar">
+            <img src="/ruta/imagen/logo.png" alt="Logo de Educational Harmonie">
+            <h4>Menu</h4>
+            <ul class="menu">
+                <li><a href="#" onclick="toggleVisibility('usuariosList')">Usuarios Registrados</a></li>
+                <li><a href="#" onclick="toggleVisibility('gruposList')">Grupos</a></li>
+                <li><a href="#" onclick="toggleVisibility('crearGrupoForm')">Crear Nuevo Grupo</a></li>
+                <li><a href="#" onclick="toggleVisibility('agregarEstudianteForm')">Agregar Estudiante a Grupo</a></li>
+                <li><a href="#" onclick="toggleVisibility('asignarDocenteForm')">Asignar Docente a Grupo</a></li>
+                <li><a href="#" onclick="toggleVisibility('asignarAcudienteForm')">Agregar Acudiente a Estudiante</a></li>
+                <li><a href="#" onclick="toggleVisibility('quejasList')">Historial de Quejas</a></li>
+                <li><a href="#" onclick="toggleVisibility('reportesList')">Historial de Reportes</a></li>
+            </ul>
+            <form action="/logout" method="post">
+                <button type="submit" id="logout-btn">Cerrar Sesión</button>
+            </form>
+        </div>
+        <!-- Contenido principal -->
+        <div class="content">
+            <h1>Bienvenido a Educational Harmonie</h1>
+            <h3>COORDINADOR</h3>
+            <div id="usuariosList" class="hidden">
+                <h2>Usuarios Registrados</h2>
+                <ul>
+                    <li th:each="usuario : ${usuarios}">
+                        <span th:text="${usuario.nombres}"></span>
+                        <span th:text="${usuario.apellidos}"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="gruposList" class="hidden">
+                <h2>Grupos</h2>
+                <ul>
+                    <li th:each="grupo : ${grupos}">
+                        <span th:text="${grupo.nombre}"></span>
+                    </li>
+                </ul>
+            </div>
+            <form id="crearGrupoForm" action="/coordinadores/crearGrupo" method="post" th:object="${grupo}" class="hidden">
+                <h2>Crear Nuevo Grupo</h2>
+                <label for="nombre">Nombre del Grupo:</label>
+                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
+                <button type="submit">Crear Grupo</button>
+            </form>
+            <form id="agregarEstudianteForm" action="/coordinadores/agregarEstudiante" method="post" class="hidden">
+                <h2>Agregar Estudiante a Grupo</h2>
+                <label for="grupoIdEstudiante">Seleccionar Grupo:</label>
+                <select id="grupoIdEstudiante" name="grupoId">
+                    <option th:each="grupo : ${grupos}" th:value="${grupo.id}" th:text="${grupo.nombre}"></option>
+                </select>
+                <label for="estudianteId">Seleccionar Estudiante:</label>
+                <select id="estudianteId" name="estudianteId">
+                    <option th:each="estudiante : ${estudiantes}" th:value="${estudiante.id}" th:text="${estudiante.usuario.nombre}"></option>
+                </select>
+                <button type="submit">Agregar Estudiante</button>
+            </form>
+            <form id="asignarDocenteForm" action="/coordinadores/asignarDocente" method="post" class="hidden">
+                <h2>Asignar Docente a Grupo</h2>
+                <label for="grupoIdDocente">Seleccionar Grupo:</label>
+                <select id="grupoIdDocente" name="grupoId">
+                    <option th:each="grupo : ${grupos}" th:value="${grupo.id}" th:text="${grupo.nombre}"></option>
+                </select>
+                <label for="docenteId">Seleccionar Docente:</label>
+                <select id="docenteId" name="docenteId">
+                    <option th:each="docente : ${docentes}" th:value="${docente.id}" th:text="${docente.nombre}"></option>
+                </select>
+                <button type="submit">Asignar Docente</button>
+            </form>
+            <form id="asignarAcudienteForm" action="/coordinadores/asignarAcudiente" method="post" class="hidden">
+                <h2>Agregar Acudiente a Estudiante</h2>
+                <label for="estudianteIdAcudiente">Seleccionar Estudiante:</label>
+                <select id="estudianteIdAcudiente" name="estudianteId">
+                    <option th:each="estudiante : ${estudiantes}" th:value="${estudiante.id}" th:text="${estudiante.usuario.nombre}"></option>
+                </select>
+                <label for="acudienteId">Seleccionar Acudiente:</label>
+                <select id="acudienteId" name="acudienteId">
+                    <option th:each="acudiente : ${acudientes}" th:value="${acudiente.id}" th:text="${acudiente.usuario.nombre}"></option>
+                </select>
+                <button type="submit">Agregar Acudiente</button>
+            </form>
+            <div id="quejasList" class="hidden">
+                <h2>Historial de Quejas</h2>
+                <input type="text" id="searchQuejas" onkeyup="filterList('searchQuejas', 'quejasUl')" placeholder="Buscar en quejas...">
+                <ul id="quejasUl">
+                    <li th:each="queja : ${quejas}">
+                        <strong>Fecha:</strong> <span th:text="${queja.fecha}">Fecha</span><br>
+                        <strong>Nombre del Estudiante:</strong> <span th:text="${queja.estudiante.nombres}">Nombre</span><br>
+                        <strong>Apellidos del Estudiante:</strong> <span th:text="${queja.estudiante.apellidos}">Apellidos</span><br>
+                        <strong>ID del Estudiante:</strong> <span th:text="${queja.estudiante.id}">ID</span><br>
+                        <strong>Descripción:</strong> <span th:text="${queja.descripcion}">Descripción</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="reportesList" class="hidden">
+                <h2>Historial de Reportes</h2>
+                <input type="text" id="searchReportes" onkeyup="filterList('searchReportes', 'reportesUl')" placeholder="Buscar en reportes...">
+                <ul id="reportesUl">
+                    <li th:each="reporte : ${reportes}">
+                        <strong>Fecha:</strong> <span th:text="${reporte.fecha}">Fecha</span><br>
+                        <strong>Nombre del Estudiante:</strong> <span th:text="${reporte.estudiante.nombres}">Nombre</span><br>
+                        <strong>Apellidos del Estudiante:</strong> <span th:text="${reporte.estudiante.apellidos}">Apellidos</span><br>
+                        <strong>ID del Estudiante:</strong> <span th:text="${reporte.estudiante.id}">ID</span><br>
+                        <strong>Descripción:</strong> <span th:text="${reporte.descripcion}">Descripción</span><br>
+                        <strong>Acciones a Tomar:</strong> <span th:text="${reporte.accionesTomar}">Acciones a Tomar</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:inline="javascript">
+        function toggleVisibility(elementId) {
+            var element = document.getElementById(elementId);
+            element.classList.toggle('hidden');
+        }
+
+        function filterList(searchInputId, listId) {
+            var input, filter, ul, li, span, i, txtValue;
+            input = document.getElementById(searchInputId);
+            filter = input.value.toUpperCase();
+            ul = document.getElementById(listId);
+            li = ul.getElementsByTagName('li');
+            for (i = 0; i < li.length; i++) {
+                span = li[i].getElementsByTagName('span');
+                txtValue = "";
+                for (const element of span) {
+                    txtValue += element.textContent || element.innerText;
+                }
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

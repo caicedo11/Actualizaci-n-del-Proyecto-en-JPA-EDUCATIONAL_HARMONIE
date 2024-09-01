@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDUCATIONAL HARMONIE</title>
+    <link rel="stylesheet" type="text/css" href="css/estudiante.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/ruta/imagen/logo.png" alt="Logo de Educational Harmonie">
+        <br>
+        <div class="menu">
+            <h1>Menu</h1>
+            <ul>
+                <li><a href="#" id="grupos-btn" onclick="toggleGrupos()">Detalles del Grupo</a></li>
+                <div id="gruposList">
+                    <!-- Contenido del grupo aquí -->
+                </div>
+            </ul>
+
+            <ul>
+                <li><a href="#" id="quejas-btn" onclick="toggleQuejas()">Historial de Quejas</a></li>
+                <div id="quejasList">
+                    <!-- Contenido de quejas aquí -->
+                </div>
+            </ul>
+            
+            <ul>
+                <li><a href="#" id="ver-grupo-btn">Ver Grupo</a></li>
+            </ul>
+               
+                <ul>
+                    <li><a href="#" id="historial-btn" onclick="toggleReportes()">Reportes</a></li>
+                    <div id="reportesList">
+                        <h2>Historial de Reportes</h2>
+                        <input type="text" id="searchReportes" onkeyup="filterList('searchReportes', 'reportesUl')" placeholder="Buscar en reportes...">
+                        <ul id="reportesUl">
+                            <li th:each="reporte : ${reportes}">
+                                <strong>Fecha:</strong> <span th:text="${reporte.fecha}">Fecha</span><br>
+                                <strong>Nombre del Estudiante:</strong> <span th:text="${reporte.estudiante.nombres}">Nombre</span><br>
+                                <strong>Apellidos del Estudiante:</strong> <span th:text="${reporte.estudiante.apellidos}">Apellidos</span><br>
+                                <strong>ID del Estudiante:</strong> <span th:text="${reporte.estudiante.id}">ID</span><br>
+                                <strong>Descripción:</strong> <span th:text="${reporte.descripcion}">Descripción</span><br>
+                                <strong>Acciones a Tomar:</strong> <span th:text="${reporte.accionesTomar}">Acciones a Tomar</span>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+        </div>
+        <form action="/logout" method="post">
+            <button type="submit" id="logout-btn">Cerrar Sesión</button>
+        </form>
+    </div>
+    <div class="content">
+        <h3>Bienvenido a Educational Harmonie</h3>
+    </div>
+
+    <script>
+        function toggleReportes() {
+            var reportesList = document.getElementById('reportesList');
+            reportesList.classList.toggle('active');
+        }
+
+        function filterList(inputId, listId) {
+            // Implementa la lógica de filtrado si es necesario
+        }
+
+        function toggleGrupos() {
+            var gruposList = document.getElementById('gruposList');
+            gruposList.classList.toggle('active');
+        }
+
+        function toggleQuejas() {
+            var quejasList = document.getElementById('quejasList');
+            quejasList.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

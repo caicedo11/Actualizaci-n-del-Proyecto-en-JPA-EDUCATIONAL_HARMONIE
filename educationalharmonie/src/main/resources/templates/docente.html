@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDUCATIONAL HARMONIE</title>
+    <link rel="stylesheet" type="text/css" href="css/docente.css">
+</head>
+<body>
+    
+    <div class="menu">
+        <br>
+        <img src="/ruta/imagen/logo.png" alt="Logo de Educational Harmonie">
+        <br>
+        <br>
+        <br>
+        <h3>Menu</h3>
+        <button onclick="toggleForm()">Crear Reporte</button>
+
+        <form id="reportForm" th:action="@{/docentes/reportar}" method="post" style="display: none;">
+            <!-- Campos del formulario -->
+        </form>
+        
+        <button onclick="toggleList('reportHistory')">Ver Historial de Reportes</button>
+        <ul id="reportHistory" style="display: none;">
+            <!-- Lista de reportes -->
+        </ul>
+        
+        <button onclick="toggleList('complaintsHistory')">Ver Historial de Quejas</button>
+        <ul id="complaintsHistory" style="display: none;">
+            <!-- Lista de quejas -->
+        </ul>
+
+        <form th:action="@{/logout}" method="get">
+            <input type="submit" value="Cerrar Sesión">
+        </form>
+    </div>
+
+    <div class="content">
+       
+        
+        <h1>Bienvenido a Educational Harmonie</h1>
+    
+        <h3>DOCENTE</h3>
+        <br><br><br>
+    
+   
+    </div>
+
+    <script>
+        function toggleForm() {
+            var form = document.getElementById("reportForm");
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+
+        function toggleList(listId) {
+            var list = document.getElementById(listId);
+            list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
